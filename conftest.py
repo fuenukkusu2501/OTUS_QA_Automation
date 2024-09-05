@@ -1,91 +1,52 @@
-import os
-
 import pytest
-
 from api_clients.api_client_placeholder import PlaceholderApiClient
-from api_clients.petstore_api_client import PetstoreApiClient
 from api_clients.dog_api_client import DogApiClient
 from api_clients.brewery_api_client import BreweryApiClient
 
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--url",
-        default="https://ya.ru",
-        help="This is request url"
+        "--dog-url",
+        default="https://dog.ceo",
+        help="Base URL for Dog API"
     )
-
     parser.addoption(
-        "--status_code",
-        type=int,
-        default=200,
-        help="Status code url"
+        "--brewery-url",
+        default="https://api.openbrewerydb.org",
+        help="Base URL for Brewery API"
+    )
+    parser.addoption(
+        "--placeholder-url",
+        default="https://jsonplaceholder.typicode.com",
+        help="Base URL for Placeholder API"
     )
 
 
-# def pytest_configure(config):
-#     config.addinivalue_line(
-#         "markers", "url: specify the URL to test"
-#     )
-#     config.addinivalue_line(
-#         "markers", "status_code: specify the expected status code"
-#     )
-
-
-@pytest.fixture
-def base_url(request):
-    return request.config.getoption("--url")
-
-@pytest.fixture
-def status_code(request):
-    return request.config.getoption("--status_code")
-
-
-# @pytest.fixture
-# def token(request):
-#     return request.config.getoption("--token")
+@pytest.fixture()
+def dog_url(request):
+    return request.config.getoption("--dog-url")
 
 
 @pytest.fixture()
-def api_client_dog(base_url, status_code):
-    client = DogApiClient(base_url=base_url,
-                          status_code=status_code) #переделать статускод, выяснить почему неожиданный аоргкмент
-    return client
+def brewery_url(request):
+    return request.config.getoption("--brewery-url")
 
 
 @pytest.fixture()
-def api_client_brewery(base_url, status_code):
-    client = BreweryApiClient()
-    return client
+def placeholder_url(request):
+    return request.config.getoption("--placeholder-url")
 
 
 @pytest.fixture()
-def api_client_placeholder(base_url, status_code):
-    client = PlaceholderApiClient()
-    return client
+def api_client_dog(dog_url):
+    return DogApiClient(base_url=dog_url)
 
 
-# @pytest.fixture(scope="session")
-# def api_client_brewery():
-#     token = os.getenv("token") # задаем переменную окружения для jenkins
-#     client = PetstoreApiClient()
-#     return client
+@pytest.fixture()
+def api_client_brewery(brewery_url):
+    return BreweryApiClient(base_url=brewery_url)
 
-#рабочий код
-# def pytest_addoption(parser):
-#     parser.addoption(
-#         "--url",
-#         default="https://dog.ceo", #времено, возможно тут должен быть другой url
-#         help="This is request url"
-#     )
-#
-#     parser.addoption(
-#         "--token",
-#         help="token to autorize"
-#     )
 
-# рабочтй код
-# @pytest.fixture(scope="session")
-# def api_client_dog(base_url, token):
-#     client = DogApiClient(base_url=base_url, auth_token=token)
-#     return client
+@pytest.fixture()
+def api_client_placeholder(placeholder_url):
+    return PlaceholderApiClient(base_url=placeholder_url)

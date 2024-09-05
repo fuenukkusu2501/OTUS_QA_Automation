@@ -1,5 +1,6 @@
 import requests
 
+
 class BreweryApiClient:
 
     def __init__(self, base_url="https://api.openbrewerydb.org"):

@@ -1,5 +1,6 @@
 import requests
 
+
 class PetstoreApiClient:
 
     def __init__(self, base_url="https://petstore.swagger.io/v2",

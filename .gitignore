@@ -161,3 +161,7 @@ cython_debug/
 #.idea/
 .idea
 src_pytest
+.src
+.files
+src
+files
