@@ -165,3 +165,16 @@ src_pytest
 .files
 src
 files
+tests/test_write_books_and_users.py
+tests/test_classes.py
+tests/test_api_DZ.py
+tests/teat_API.py
+tests/session_api.py
+api_clients/petstore_api_client.py
+petstore_api_client.py
+/src/
+/files/
+tests/test_dog_api.py
+tests/test_placeholder_api.py
+api_clients/api_client_placeholder.py
+api_clients/dog_api_client.py
